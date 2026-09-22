@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharti Dairy App - Interview Ready Project Sheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #064e3b;
+      --primary-light: #059669;
+      --accent: #d97706;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --card: #ffffff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: #f1f5f9;
+      color: var(--dark);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    .page-container {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 36px 40px;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+    }
+    .title-group h1 {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .title-group p {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .print-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .print-btn:hover {
+      background: var(--primary-light);
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background: #ecfdf5;
+      color: #047857;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 8px;
+      border: 1px solid #a7f3d0;
+      margin-right: 4px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+    .pitch-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 12px 12px 0;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 14px;
+      border-radius: 14px;
+    }
+    .card h4 {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .card p, .card ul {
+      font-size: 12px;
+      color: #475569;
+    }
+    ul {
+      padding-left: 18px;
+    }
+    li {
+      margin-bottom: 3px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+    th, td {
+      padding: 7px 10px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #475569;
+    }
+    .qa-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .qa-question {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .qa-answer {
+      font-size: 12px;
+      color: #334155;
+      margin-top: 3px;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .page-container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .qa-box, .card {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="title-group">
+        <h1>Bharti Dairy Management Pro</h1>
+        <p>Full-Stack Dairy SaaS & Local-First Logistics Platform • React 18 / Vite / Tailwind</p>
+        <div style="margin-top: 8px;">
+          <span class="tag">React 18</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Tailwind CSS v4</span>
+          <span class="tag">Dynamic UPI QR</span>
+          <span class="tag">WhatsApp API</span>
+          <span class="tag">Local-First</span>
+        </div>
+      </div>
+      <button class="print-btn no-print" onclick="window.print()">
+        🖨️ Print / Save as PDF
+      </button>
+    </div>
+
+    <!-- 30-Second Elevator Pitch -->
+    <div class="section">
+      <div class="section-title">1. Project Elevator Pitch (30-Second Overview)</div>
+      <div class="pitch-box">
+        "I engineered <strong>Bharti Dairy Pro</strong>, a high-performance local-first web platform for Indian dairy businesses and milk delivery distributors. It modernizes paper register workflows with real-time shift delivery logging, automated monthly billing, dynamic UPI QR code generation for PhonePe/GPay, and 1-click WhatsApp bill dispatch with thermal printer receipt support."
+      </div>
+    </div>
+
+    <!-- Tech Stack & Architectural Decisions -->
+    <div class="section">
+      <div class="section-title">2. Architecture & Tech Stack Matrix</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Technology</th>
+            <th>Role</th>
+            <th>Engineering Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>React 18</strong></td>
+            <td>Core Frontend</td>
+            <td>Declarative state modeling, optimized render cycles using <code>useMemo</code> and <code>useCallback</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Vite 6</strong></td>
+            <td>Build & Tooling</td>
+            <td>Sub-second Hot Module Replacement (HMR) and production bundle optimization (64 KB gzip).</td>
+          </tr>
+          <tr>
+            <td><strong>Tailwind CSS v4</strong></td>
+            <td>Design System</td>
+            <td>Lightweight utility system with custom <code>@media print</code> thermal printer slip styling.</td>
+          </tr>
+          <tr>
+            <td><strong>Local-First Storage</strong></td>
+            <td>Data Layer</td>
+            <td>100% offline functionality, zero-latency persistence, and JSON backup/restore portability.</td>
+          </tr>
+          <tr>
+            <td><strong>UPI & WhatsApp API</strong></td>
+            <td>P2P Integration</td>
+            <td>Zero SMS gateway costs; direct P2P customer billing via encoded deep links and dynamic QR.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Key Features & Business Impact -->
+    <div class="section">
+      <div class="section-title">3. Core Features & Business Logic</div>
+      <div class="grid-2">
+        <div class="card">
+          <h4>🥛 Dual-Shift Delivery Register</h4>
+          <ul>
+            <li>Tracks Morning & Evening shifts (+/- 0.5L steppers).</li>
+            <li><strong>1-Click Bulk Default Logging</strong> saving ~90% daily data entry time.</li>
+            <li>Single-tap Leave/Holiday handling with live recalculated daily volume and revenue metrics.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🧾 Automated Monthly Billing & WhatsApp</h4>
+          <ul>
+            <li>Auto-computes supply days, total liters, rates, past dues, and net payable.</li>
+            <li>Generates formatted WhatsApp bill templates with direct <code>wa.me</code> links.</li>
+            <li>58mm / 80mm thermal receipt printer support.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>📱 Live Scannable UPI QR Code</h4>
+          <ul>
+            <li>Dynamic QR code encoded with dairy's UPI ID & exact net payable amount.</li>
+            <li>Enables instant 1-tap customer payments via PhonePe, Google Pay, and Paytm.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🪙 Payment Ledger & Passbook</h4>
+          <ul>
+            <li>Double-entry register for UPI, Cash, and NEFT payments.</li>
+            <li>Automatic balance deduction and rollback on payment voiding.</li>
+            <li>Date-wise customer passbook history with quantity & absence breakdown.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Questions & Engineering Deep Dive -->
+    <div class="section">
+      <div class="section-title">4. Key Technical Interview Questions & Answers</div>
+
+      <div class="qa-box">
+        <div class="qa-question">Q1: How do you maintain fast rendering when calculating monthly summaries for dozens of customers?</div>
+        <div class="qa-answer">
+          <strong>A:</strong> Deliveries are stored in a normalized hash map <code>{ [date]: { [customerId]: { morning, evening, isHoliday, rate } } }</code> providing $O(1)$ updates. Calculations for daily dashboard metrics and customer month aggregates are memoized with <code>useMemo</code>, eliminating unnecessary recalculations during searches or filter changes.
+        </div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-question">Q2: Why choose a Local-First architecture rather than a backend database?</div>
+        <div class="qa-answer">
+          <strong>A:</strong> Milk delivery vendors operate on early morning routes with poor mobile network connectivity. Local-first architecture guarantees 100% offline availability with zero server lag, while JSON backup/restore and CSV exports ensure zero data loss.
+        </div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-question">Q3: How did you implement thermal slip printing in the browser?</div>
+        <div class="qa-answer">
+          <strong>A:</strong> I implemented targeted <code>@media print</code> CSS rules that isolate the receipt DOM element, set monospace typography, hide non-printable navigation bars/buttons, and enforce thermal printer dimensions (58mm/80mm) via <code>window.print()</code>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Summary -->
+    <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 12px; font-size: 11px; color: #94a3b8;">
+      Bharti Dairy Management Pro • GitHub: <strong>github.com/devesh950/DAIRY-MANAGEMENTS-APPS</strong>
+    </div>
+  </div>
+
+</body>
+</html>
