@@ -607,9 +607,7 @@ UPI ID: ${dairyInfo.upiId}`;
     return customers.filter(c => {
       const q = searchQuery.toLowerCase();
       const matchesSearch = c.name.toLowerCase().includes(q) ||
-        c.phone.includes(q) ||
-        c.address.toLowerCase().includes(q) ||
-        (c.route && c.route.toLowerCase().includes(q));
+        c.phone.includes(q);
 
       const matchesMilk = filterMilkType === 'all' || c.milkType === filterMilkType;
       const matchesRoute = filterRoute === 'all' || c.route === filterRoute;
@@ -659,11 +657,11 @@ UPI ID: ${dairyInfo.upiId}`;
   };
 
   const exportMonthlyBillingCSV = () => {
-    let csv = "S.No,Customer Name,Phone,Route,Milk Type,Supply Days,Absent Days,Total Liters,Rate,Month Amount,Previous Due,Paid,Net Due\n";
+    let csv = "S.No,Customer Name,Mobile Number,Milk Type,Supply Days,Absent Days,Total Liters,Rate,Month Amount,Previous Due,Paid,Net Due\n";
     filteredCustomers.forEach((c, idx) => {
       const summary = calculateCustomerMonthSummary(c.id, billingMonth);
       if (summary) {
-        csv += `${idx + 1},"${c.name}","${c.phone}","${c.route || ''}","${c.milkType}",${summary.totalDaysSupplied},${summary.absentDays},${summary.totalLiters},${c.rate},${summary.billAmount},${c.balance},${summary.totalPaidInMonth},${summary.netDue}\n`;
+        csv += `${idx + 1},"${c.name}","${c.phone}","${c.milkType}",${summary.totalDaysSupplied},${summary.absentDays},${summary.totalLiters},${c.rate},${summary.billAmount},${c.balance},${summary.totalPaidInMonth},${summary.netDue}\n`;
       }
     });
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -988,11 +986,7 @@ UPI ID: ${dairyInfo.upiId}`;
                                customer.milkType === 'mix' ? 'Mix' : 'Buffalo'}
                             </span>
                           </div>
-                          <p className="text-xs text-stone-500 font-medium flex items-center gap-1 mt-1">
-                            <MapPin className="w-3 h-3 text-stone-400" />
-                            <span>{customer.address}</span>
-                          </p>
-                          <p className="text-xs text-stone-400 mt-0.5">
+                          <p className="text-xs text-stone-600 font-bold font-mono flex items-center gap-1 mt-1.5">
                             📞 {customer.phone}
                           </p>
                         </div>
@@ -1121,7 +1115,7 @@ UPI ID: ${dairyInfo.upiId}`;
                       <tr>
                         <th className="p-3 text-center w-12">#</th>
                         <th className="p-3">Customer Name</th>
-                        <th className="p-3">Address / Route</th>
+                        <th className="p-3">Mobile Number</th>
                         <th className="p-3 text-center">Morning (L)</th>
                         <th className="p-3 text-center">Evening (L)</th>
                         <th className="p-3 text-right">Total (L)</th>
@@ -1138,7 +1132,7 @@ UPI ID: ${dairyInfo.upiId}`;
                           <tr key={c.id} className={`hover:bg-stone-50 ${d.isHoliday ? 'bg-rose-50/50' : ''}`}>
                             <td className="p-3 text-center font-mono font-bold text-stone-500">#{idx + 1}</td>
                             <td className="p-3 font-black text-stone-900">{c.name}</td>
-                            <td className="p-3 text-stone-500 text-xs">{c.address}</td>
+                            <td className="p-3 font-mono text-stone-800 text-xs font-bold">📞 {c.phone}</td>
                             <td className="p-3 text-center font-bold text-amber-900">{d.isHoliday ? '-' : `${d.morning}L`}</td>
                             <td className="p-3 text-center font-bold text-indigo-900">{d.isHoliday ? '-' : `${d.evening}L`}</td>
                             <td className="p-3 text-right font-black text-stone-900">{d.isHoliday ? '0 L' : `${total.toFixed(1)}L`}</td>
@@ -1172,7 +1166,7 @@ UPI ID: ${dairyInfo.upiId}`;
                   <Search className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                   <input
                     type="text"
-                    placeholder="Search by customer name, address, phone..."
+                    placeholder="Search by customer name or mobile number..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-9 pr-4 py-2 bg-stone-50 border border-stone-300 rounded-2xl text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 w-64 sm:w-80"
@@ -1234,7 +1228,7 @@ UPI ID: ${dairyInfo.upiId}`;
                     <tr>
                       <th className="p-3.5 text-center w-14">#</th>
                       <th className="p-3.5">Customer Name</th>
-                      <th className="p-3.5">Phone & Address</th>
+                      <th className="p-3.5">Mobile Number</th>
                       <th className="p-3.5">Milk Type</th>
                       <th className="p-3.5 text-right">Daily Quota (M / E)</th>
                       <th className="p-3.5 text-right">Rate (₹/L)</th>
@@ -1269,8 +1263,9 @@ UPI ID: ${dairyInfo.upiId}`;
                             </button>
                           </td>
                           <td className="p-3.5">
-                            <div className="font-bold text-stone-800">📞 {c.phone}</div>
-                            <div className="text-xs text-stone-500">{c.address} {c.route && `• [${c.route}]`}</div>
+                            <div className="font-bold text-stone-900 font-mono text-xs sm:text-sm flex items-center gap-1.5">
+                              📞 {c.phone}
+                            </div>
                           </td>
                           <td className="p-3.5">
                             <span className={`px-2 py-0.5 rounded text-[11px] font-black border ${
@@ -1785,39 +1780,15 @@ UPI ID: ${dairyInfo.upiId}`;
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-black text-stone-600 mb-1">Phone Number *</label>
-                  <input
-                    type="tel"
-                    placeholder="9812345670"
-                    required
-                    value={customerForm.phone}
-                    onChange={(e) => setCustomerForm({ ...customerForm, phone: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-2xl px-3 py-2 text-sm font-bold"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-stone-600 mb-1">Route / Area</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Vikas Nagar"
-                    value={customerForm.route || ''}
-                    onChange={(e) => setCustomerForm({ ...customerForm, route: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-2xl px-3 py-2 text-sm"
-                  />
-                </div>
-              </div>
-
               <div>
-                <label className="block text-xs font-black text-stone-600 mb-1">House No. & Full Address</label>
+                <label className="block text-xs font-black text-stone-600 mb-1">Mobile Phone Number *</label>
                 <input
-                  type="text"
-                  placeholder="e.g. House No. 12, Street 3, Vikas Nagar"
-                  value={customerForm.address}
-                  onChange={(e) => setCustomerForm({ ...customerForm, address: e.target.value })}
-                  className="w-full bg-stone-50 border border-stone-300 rounded-2xl px-3 py-2 text-sm"
+                  type="tel"
+                  placeholder="9812345670"
+                  required
+                  value={customerForm.phone}
+                  onChange={(e) => setCustomerForm({ ...customerForm, phone: e.target.value })}
+                  className="w-full bg-stone-50 border border-stone-300 rounded-2xl px-3 py-2 text-sm font-bold"
                 />
               </div>
 
@@ -2012,8 +1983,8 @@ UPI ID: ${dairyInfo.upiId}`;
                   <CalendarDays className="w-5 h-5 text-amber-400" />
                   <span>{selectedCustomerForHistory.name} - Daily Passbook</span>
                 </h3>
-                <p className="text-xs text-emerald-200">
-                  📞 {selectedCustomerForHistory.phone} • {selectedCustomerForHistory.address}
+                <p className="text-xs text-emerald-200 font-mono mt-0.5">
+                  📞 {selectedCustomerForHistory.phone}
                 </p>
               </div>
               <button
